@@ -15,15 +15,21 @@ class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
     
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    phone_no = db.Column(db.Integer)
+    first_name = db.Column(db.String)
+    last_name = db.Column(db.String)
+    full_name = db.Column(db.String)
+    username = db.Column(db.String)
+    phone_no = db.Column(db.Integer, unique=True)
     profile = db.Column(db.String)
     about = db.Column(db.String)
-    email = db.Column(db.String)
+    email = db.Column(db.String, unique=True)
     password = db.Column(db.String)
     
-    def __init__(self, name, phone_no, profile, about, email, password):
-        self.name = name
+    def __init__(self, first_name,last_name, username, phone_no, profile, about, email, password):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.full_name = first_name + ' ' + last_name
+        self.username = username
         self.phone_no = phone_no
         self.profile = profile
         self.about = about
@@ -76,6 +82,7 @@ class Group(db.Model, SerializerMixin):
     name = db.Column(db.String)
     admin = db.Column(db.Integer, db.ForeignKey('users.id'))
     profile = db.Column(db.String)
+    description = db.Column(db.String)
     
     admin = db.relationship('User', backref='groups')
     
