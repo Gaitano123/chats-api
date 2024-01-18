@@ -1,4 +1,9 @@
-from server import db, SerializerMixin, datetime
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy_serializer import SerializerMixin
+from datetime import datetime
+
+db = SQLAlchemy()
+
 
 class User(db.Model, SerializerMixin):
     
@@ -7,7 +12,7 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     phone_no = db.Column(db.Integer)
-    profile = db.Column(db.string)
+    profile = db.Column(db.String)
     about = db.Column(db.String)
     email = db.Column(db.String)
     password = db.Column(db.String)
@@ -29,6 +34,8 @@ class Chat(db.Model, SerializerMixin):
     sender = db.Column(db.Integer, db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     
+    sender = db.relationship('User', backref='chats')
+    
     def __init__(self, chat, sender):
         self.chat = chat
         self.sender = sender
@@ -43,6 +50,8 @@ class Pair_chat(db.Model, SerializerMixin):
     receiver = db.Column(db.String, db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     
+    sender = db.relationship('User', backref = 'pair_chats')
+    
     def __init__(self, chat, sender, receiver):
         self.chat = chat
         self.sender = sender
@@ -55,7 +64,9 @@ class Group(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     admin = db.Column(db.Integer, db.ForeignKey('users.id'))
-    profile = db.Column(db.string)
+    profile = db.Column(db.String)
+    
+    admin = db.relationship('User', backref='groups')
     
     def __init__(self, name, admin, profile):
         self.name = name
@@ -67,8 +78,11 @@ class Group_Member(db.Model, SerializerMixin):
     __tablename__ = 'group_members'
     
     id = db.Column(db.Integer, primary_key=True)
-    group_id = db.Column(db.Integer, db.foreignKey('groups.id'))
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.id'))
     member_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    
+    group = db.relationship('Group', backref='group_members')
+    member = db.relationship('User', backref='group_members')
     
     def __init__(self, group_id, member_id):
         self.group_id = group_id
@@ -79,9 +93,12 @@ class Group_Chat(db.Model, SerializerMixin):
     __tablename__ = 'group_chats'
     
     id = db.Column(db.Integer, primary_key=True)
-    group_id = db.Column(db.Integer, db.foreignKey('groups.id'))
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.id'))
     sender = db.Column(db.Integer, db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
+    
+    group = db.relationship('Group', backref='group_members')
+    sender = db.relationship('User', backref='group_members')
     
     def __init__(self, group_id, sender):
         self.group_id = group_id
