@@ -1,8 +1,13 @@
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
 from datetime import datetime
+from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
+
+app = Flask(__name__)
 
 db = SQLAlchemy()
+bcrypt = Bcrypt(app)
 
 
 class User(db.Model, SerializerMixin):
@@ -23,7 +28,13 @@ class User(db.Model, SerializerMixin):
         self.profile = profile
         self.about = about
         self.email = email
-        password = password
+        self.password = self.generate_password_hash(password)
+        
+    def generate_password_hash(self, password):
+        return bcrypt.generate_password_hash(password).decode('utf-8')
+    
+    def check_password(self, password):
+        return bcrypt.check_password_hash(self.password, password)
 
 class Chat(db.Model, SerializerMixin):
     
