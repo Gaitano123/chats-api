@@ -30,7 +30,7 @@ with app.app_context():
             username = fake.name(),
             phone_no= fake.phone_number(),
             profile = fake.image_url(),
-            about = fake.text(),
+            about = fake.sentence(),
             email= fake.email(),
             password = 'helloworld'
         )
@@ -44,7 +44,7 @@ with app.app_context():
     chats=[]
     for _ in range(1000):
         chat = Chat(
-            chat = fake.text(),
+            chat = fake.text(max_nb_chars=80),
             sender= random.randint(1, 100)
         )
         chats.append(chat)
@@ -58,7 +58,7 @@ with app.app_context():
     pair_chats = []
     for _ in range(0, 900):
         pair_chat = Pair_chat(
-            chat = fake.text(),
+            chat = fake.text(max_nb_chars=80),
             sender = random.randint(1, 100),
             receiver = random.randint(1, 100)
         )
@@ -104,7 +104,7 @@ with app.app_context():
         group_chat = Group_Chat(
             group_id  = random.randint(1, 200),
             sender = random.randint(1, 100),
-            chat = fake.text()
+            chat = fake.text(max_nb_chars=80)
         )
         group_chats.append(group_chat)
         
