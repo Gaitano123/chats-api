@@ -100,7 +100,7 @@ with app.app_context():
     
     group_chats = []
     
-    for _ in range(0, 10000):
+    for _ in range(0, 2000):
         group_chat = Group_Chat(
             group_id  = random.randint(1, 200),
             sender = random.randint(1, 100),
