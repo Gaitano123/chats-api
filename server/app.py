@@ -120,6 +120,23 @@ class Users(Resource):
     def get(self):
         return User.query.all()
     
+    @ns.expect(user_input_model)
+    @ns.marshal_with(user_model)
+    def post(self):
+        user = User(
+            first_name= ns.payload["first_name"],
+            last_name= ns.payload["last_name"],
+            username= ns.payload["username"],
+            phone_no= ns.payload["phone_no"],
+            profile= ns.payload["profile"],
+            about= ns.payload["about"],
+            email= ns.payload["email"],
+            password= ns.payload["password"]
+        )
+        db.session.add(user)
+        db.session.commit()
+        return user, 201
+    
 @ns.route("/users/<int:id>")    
 class UserById(Resource):
     
@@ -135,6 +152,17 @@ class Chats(Resource):
     def get(self):
         return Chat.query.all()
     
+    @ns.expect(chat_input_model)
+    @ns.marshal_with(chat_model)
+    def post(self):
+        chat = Chat(
+            chat= ns.payload["chat"],
+            sender= ns.payload["sender"]
+        )
+        db.session.add(chat)
+        db.session.commit()
+        return chat
+    
 @ns.route("/chats/<int:id>")
 class ChatsById(Resource):
     
@@ -149,6 +177,18 @@ class PairChats(Resource):
     @ns.marshal_list_with(pair_chat_model)
     def get(self):
         return Pair_chat.query.all()
+    
+    @ns.expect(pair_chat_input_model)
+    @ns.marshal_with(pair_chat_model)
+    def post(self):
+        pair_chat = Pair_chat(
+            chat= ns.payload["chat"],
+            sender= ns.payload["sender"],
+            receiver= ns.payload["receiver"]
+        )
+        db.session.add(pair_chat)
+        db.session.commit()
+        return pair_chat, 201
 
 @ns.route("/pair-chat/<int:id>")
 class PairChatById(Resource):
@@ -164,6 +204,19 @@ class Groups(Resource):
     @ns.marshal_list_with(groups_model)
     def get(self):
         return Group.query.all()
+    
+    @ns.expect(groups_input_model)
+    @ns.marshal_with(groups_model)
+    def post(self):
+        group = Group(
+            name= ns.payload["name"],
+            admin_id= ns.payload["admin_id"],
+            profile= ns.payload["profile"],
+            description= ns.payload["description"],
+        )
+        db.session.add(group)
+        db.session.commit()
+        return group
 
 @ns.route("/groups/<int:id>")
 class GroupById(Resource):
@@ -179,6 +232,17 @@ class GroupMembers(Resource):
     @ns.marshal_list_with(group_member_model)
     def get(self):
         return Group_Member.query.all()
+    
+    @ns.expect(group_member_input_model)
+    @ns.marshal_with(group_member_model)
+    def post(self):
+        member = Group_Member(
+            group_id= ns.payload["group_id"],
+            member_id= ns.payload["member_id"]
+        )
+        db.session.add(member)
+        db.session.commit()
+        return member
 
 @ns.route("/group-members/<int:id>")
 class GroupMemberById(Resource):
@@ -194,6 +258,18 @@ class GroupChats(Resource):
     @ns.marshal_list_with(group_chat_model)
     def get(self):
         return Group_Chat.query.all()
+    
+    @ns.expect(group_chat_input_model)
+    @ns.marshal_with(group_chat_model)
+    def post(self):
+        chat = Group_Chat(
+            group_id= ns.payload["group_id"],
+            sender= ns.payload["sender"],
+            chat= ns.payload["chat"]
+        )
+        db.session.add(chat)
+        db.session.commit()
+        return chat
 
 @ns.route("/group-chat/<int:id>")
 class GroupChatById(Resource):
