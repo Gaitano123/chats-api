@@ -326,6 +326,31 @@ class GroupChatById(Resource):
         
         return {}, 201
 
+@ns.route("/login")
+class Login(Resource):
+    
+    @ns.expect(login_input)
+    def post(self):
+        username = ns.payload['username']
+        password = ns.payload['password']
+
+        user = User.query.filter_by(username=username).first()
+
+        if user:
+            if bcrypt.check_password_hash(user.password, password):
+                token = jwt.encode(
+                    {
+                        'id': user.id,
+                        'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=120)
+                    },
+                    app.config['SECRET_KEY'],
+                    algorithm='HS256'
+                )
+                return make_response(jsonify({'message': 'Login successful', 'token': token, 'id': user.id}), 200)
+            else:
+                return make_response(jsonify({'message': 'Login failed', 'error': 'Invalid email or password'}), 404)
+        else:
+            return make_response(jsonify({'message': 'Login failed', 'error': 'User not found'}), 404)
 
 
 api.add_namespace(ns)
