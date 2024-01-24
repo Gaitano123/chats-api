@@ -1,12 +1,15 @@
-from flask import Flask
+from flask import Flask, jsonify, request, make_response
 from flask_migrate import Migrate
 from flask_restx import Api, fields, Namespace, Resource
+import jwt
+import datetime
 
-from models import db, app, Chat,Group, User, Group_Chat,Pair_chat,Group_Member
+from models import db, app, Chat,Group, User, Group_Chat,Pair_chat,Group_Member, bcrypt, check_password_hash
 # from routes import ns
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SECRET_KEY'] = 'bb8f7de46cd7426ebf5ca7df06d43665'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 migrate = Migrate(app, db)
@@ -112,6 +115,11 @@ group_chat_input_model = api.model("Group_Chat", {
     "sender": fields.Integer,
     "chat": fields.String,
 })
+
+login_input = api.model("user", {
+    "username": fields.String,
+    "password": fields.String
+})
     
 @ns.route("/users")
 class Users(Resource):
@@ -145,6 +153,12 @@ class UserById(Resource):
         user = User.query.get(id)
         return user
     
+    def delete(self, id):
+        user = User.query.get(id)
+        db.session.delete(user)
+        db.session.commit()
+        return {}, 201
+    
 @ns.route("/chats")
 class Chats(Resource):
     
@@ -170,6 +184,12 @@ class ChatsById(Resource):
     def get(self, id):
         chat = Chat.query.get(id)
         return chat    
+    
+    def delete(self, id):
+        chat = Chat.query.get(id)
+        db.session.delete(chat)
+        db.session.commit()
+        return {}, 201
     
 @ns.route("/pair-chats")
 class PairChats(Resource):
@@ -197,6 +217,12 @@ class PairChatById(Resource):
     def get(self, id):
         pair_chat = Pair_chat.query.get(id)
         return pair_chat
+    
+    def delete(self, id):
+        pair_chat = Pair_chat.query.get(id)
+        db.session.delete(pair_chat)
+        db.session.delete()
+        return {}, 201
 
 @ns.route("/groups")
 class Groups(Resource):
@@ -226,6 +252,12 @@ class GroupById(Resource):
         group = Group.query.get(id)
         return group
     
+    def delete(self, id):
+        group = Group.query.get(id)
+        db.session.delete(group)
+        db.session.commit()
+        return {}, 201
+    
 @ns.route("/group-memebers")
 class GroupMembers(Resource):
     
@@ -251,6 +283,13 @@ class GroupMemberById(Resource):
     def get(self, id):
         member = Group_Member.query.get(id)
         return member
+    
+    
+    def delete(self, id):
+        member = Group_Member.query.get(id)
+        db.session.delete(member)
+        db.session.commit()
+        return {},201
     
 @ns.route("/group-chats")
 class GroupChats(Resource):
@@ -278,6 +317,16 @@ class GroupChatById(Resource):
     def get(self, id):
         chat = Group_Chat.query.get(id)
         return chat
+    
+    
+    def delete(self, id):
+        chat = Group_Chat.query.get(id)
+        db.session.delete(chat)
+        db.session.commit()
+        
+        return {}, 201
+
+
 
 api.add_namespace(ns)
 
