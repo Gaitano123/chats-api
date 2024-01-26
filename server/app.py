@@ -18,7 +18,7 @@ api = Api(app)
 ns = Namespace("api")
 
 
-user_model = api.model("user",{
+user_model = api.model("User",{
     "id":fields.Integer,
     "first_name": fields.String,
     "last_name": fields.String,
@@ -31,7 +31,7 @@ user_model = api.model("user",{
     "password": fields.String
 })
 
-user_input_model = api.model("user",{
+user_input_model = api.model("User",{
     "first_name": fields.String,
     "last_name": fields.String,
     "username": fields.String,
@@ -116,7 +116,7 @@ group_chat_input_model = api.model("Group_Chat", {
     "chat": fields.String,
 })
 
-login_input = api.model("user", {
+login_input = api.model("Login", {
     "username": fields.String,
     "password": fields.String
 })
@@ -153,6 +153,35 @@ class UserById(Resource):
         user = User.query.get(id)
         return user
     
+    @ns.expect(user_input_model)
+    @ns.marshal_with(user_model)
+    def patch(self, id):
+        user = User.query.get(id)
+        
+        if not user:
+            ns.abort(404, message="User not found")
+            
+        for key, value in ns.payload.items():
+            setattr(user, key, value)
+            
+        db.session.commit()
+        return user
+    
+    @ns.expect(user_input_model)
+    @ns.marshal_with(user_model)
+    def put(self, id):
+        user = User.query.get(id)
+        user.first_name= ns.payload["first_name"]
+        user.last_name= ns.payload["last_name"]
+        user.username= ns.payload["username"]
+        user.phone_no= ns.payload["phone_no"]
+        user.profile= ns.payload["profile"]
+        user.about= ns.payload["about"]
+        user.email= ns.payload["email"]
+        user.password= ns.payload["password"]
+        db.session.commit()
+        return user
+    
     def delete(self, id):
         user = User.query.get(id)
         db.session.delete(user)
@@ -183,7 +212,31 @@ class ChatsById(Resource):
     @ns.marshal_with(chat_model)
     def get(self, id):
         chat = Chat.query.get(id)
-        return chat    
+        return chat  
+    
+    @ns.expect(chat_input_model)
+    @ns.marshal_with(chat_model)
+    def patch(self, id):
+        chat = Chat.query.get(id)
+        
+        if not chat:
+            ns.abort(401, message = "chat not found")
+            
+        for key, value in ns.payload.items():
+            setattr(chat, key, value)
+            
+        db.session.commit()
+        return chat
+    
+    @ns.expect(chat_input_model)
+    @ns.marshal_with(chat_model)
+    def put(self, id):
+        chat = Chat.query.get(id)
+        chat.chat= ns.payload["chat"],
+        chat.sender= ns.payload["sender"]
+        db.session.commit()
+        return chat
+          
     
     def delete(self, id):
         chat = Chat.query.get(id)
@@ -218,6 +271,31 @@ class PairChatById(Resource):
         pair_chat = Pair_chat.query.get(id)
         return pair_chat
     
+    @ns.expect(pair_chat_input_model)
+    @ns.marshal_with(pair_chat_model)
+    def patch(self, id):
+        pair_chat = Pair_chat.query.get(id)
+        
+        if not pair_chat:
+            ns.abort(401, message="pair chat not found")
+            
+        for key, value in ns.payload.items():
+            setattr(pair_chat, key, value)
+            
+        db.session.commit()
+        return pair_chat
+    
+    @ns.expect(pair_chat_input_model)
+    @ns.marshal_with(pair_chat_model)
+    def put(self, id):
+        pair_chat = Pair_chat.query.get(id)
+        pair_chat.chat= ns.payload["chat"]
+        pair_chat.sender= ns.payload["sender"]
+        pair_chat.receiver= ns.payload["receiver"]
+        db.session.commit()
+        return pair_chat
+        
+    
     def delete(self, id):
         pair_chat = Pair_chat.query.get(id)
         db.session.delete(pair_chat)
@@ -238,7 +316,7 @@ class Groups(Resource):
             name= ns.payload["name"],
             admin_id= ns.payload["admin_id"],
             profile= ns.payload["profile"],
-            description= ns.payload["description"],
+            description= ns.payload["description"]
         )
         db.session.add(group)
         db.session.commit()
@@ -251,6 +329,32 @@ class GroupById(Resource):
     def get(self, id):
         group = Group.query.get(id)
         return group
+    
+    @ns.expect(groups_input_model)
+    @ns.marshal_with(groups_model)
+    def patch(self, id):
+        group = Group.query.get(id)
+        
+        if not group:
+            ns.abort(401, message="Group not found")
+            
+        for key, value in ns.payload.items():
+            setattr(group, key, value)
+            
+        db.session.commit()
+        return group
+    
+    @ns.expect(group_chat_model)
+    @ns.marshal_with(groups_model)
+    def put(self, id):
+        group = Group.query.get(id)
+        group.name= ns.payload["name"],
+        group.admin_id= ns.payload["admin_id"],
+        group.profile= ns.payload["profile"],
+        group.description= ns.payload["description"]
+        db.session.commit()
+        return group
+        
     
     def delete(self, id):
         group = Group.query.get(id)
@@ -284,6 +388,28 @@ class GroupMemberById(Resource):
         member = Group_Member.query.get(id)
         return member
     
+    @ns.expect(group_member_input_model)
+    @ns.marshal_with(group_member_model)
+    def patch(self, id):
+        member = Group_Member.query.get(id)
+        
+        if not member:
+            ns.abort(404, "group member not found")
+            
+        for key, value in ns.payload.items():
+            setattr(member, key, value)
+            
+        db.session.commit()
+        return member
+    
+    @ns.expect(group_member_input_model)
+    @ns.marshal_with(group_member_model)
+    def put(self, id):
+        member = Group_Member.query.get(id)
+        member.group_id= ns.payload["group_id"],
+        member.member_id= ns.payload["member_id"]
+        db.session.commit()
+        return member
     
     def delete(self, id):
         member = Group_Member.query.get(id)
@@ -316,6 +442,31 @@ class GroupChatById(Resource):
     @ns.marshal_with(group_chat_model)
     def get(self, id):
         chat = Group_Chat.query.get(id)
+        return chat
+    
+    @ns.expect(group_chat_input_model)
+    @ns.marshal_with(group_chat_model)
+    def patch(self, id):
+        chat = Group_Chat.query.get(id)
+        
+        if not chat:
+            ns.abort(401, message="group chat not found")
+        
+        for key, value in ns.payload.items():
+            setattr(chat, key, value)
+            
+        db.session.commit()
+        
+        return chat
+    
+    @ns.expect(group_chat_input_model)
+    @ns.marshal_with(group_chat_model)
+    def put(self, id):
+        chat = Group_Chat.query.get(id)
+        chat.group_id= ns.payload["group_id"],
+        chat.sender= ns.payload["sender"],
+        chat.chat= ns.payload["chat"]
+        db.session.commit()
         return chat
     
     
