@@ -2,11 +2,6 @@ import React from "react";
 
 function Profile({ profile }){
 
-    // if (!Array.isArray(profile)) {
-    //     console.error('profile is not an array:', profile);
-    //     return null; // or return an error message or handle it accordingly
-    // }
-
     return(
         <div>
             <p>First Name: {profile.first_name}</p>
