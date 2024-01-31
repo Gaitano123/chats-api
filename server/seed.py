@@ -2,6 +2,8 @@ from app import app
 from faker import Faker
 import random
 from datetime import datetime
+import os
+from pathlib import Path
 
 from models import db, User, Chat, Pair_chat, Group, Group_Chat, Group_Member
 
@@ -19,6 +21,9 @@ with app.app_context():
     db.session.commit()
     
     fake = Faker()
+    user_profile = os.path.join(Path(__file__).resolve().parent, 'blank-profile-picture-973460_960_720.webp')
+    group_profile= os.path.join(Path(__file__).resolve().parent, 'blank-profile-picture-973460_960_720.webp')
+
     
     print('🦸‍♀️ Seeding users...')
     
@@ -29,7 +34,7 @@ with app.app_context():
             last_name= fake.last_name(),
             username = fake.name(),
             phone_no= fake.phone_number(),
-            profile = fake.image_url(),
+            profile = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.ph%2Fpin%2F792070653234421442%2F&psig=AOvVaw2JuYwpWu7NzwWrct6Zbdwf&ust=1706823844380000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCIil1bnMiIQDFQAAAAAdAAAAABAE',
             about = fake.sentence(),
             email= fake.email(),
             password = 'helloworld'
@@ -74,7 +79,7 @@ with app.app_context():
         group = Group(
             name = fake.company(),
             admin_id = random.randint(1, 100),
-            profile = fake.image_url(),
+            profile = group_profile,
             description = fake.text()
         )
         groups.append(group)

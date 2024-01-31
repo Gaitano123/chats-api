@@ -3,11 +3,17 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
 from datetime import datetime
 from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
+import os
+from pathlib import Path
+
 
 app = Flask(__name__)
 
 db = SQLAlchemy()
 bcrypt = Bcrypt(app)
+
+default_profile_path_for_user = os.path.join(Path(__file__).resolve().parent, 'blank-profile-picture-973460_960_720.webp')
+default_profile_path_for_group = os.path.join(Path(__file__).resolve().parent, 'blank-profile-picture-973460_960_720.webp')
 
 
 class User(db.Model, SerializerMixin):
@@ -29,9 +35,9 @@ class User(db.Model, SerializerMixin):
         self.first_name = first_name
         self.last_name = last_name
         self._full_name = f"{first_name} {last_name}" 
-        self.username = username
+        self.username = username.lower().replace(" ", "")
         self.phone_no = phone_no
-        self.profile = profile
+        self.profile = profile if profile else default_profile_path_for_user
         self.about = about
         self.email = email
         self.password = self.generate_password_hash(password)
@@ -100,7 +106,7 @@ class Group(db.Model, SerializerMixin):
     def __init__(self, name, admin_id, profile, description):
         self.name = name
         self.admin_id = admin_id
-        self.profile = profile
+        self.profile = profile if profile else default_profile_path_for_group
         self.description = description
 
 class Group_Member(db.Model, SerializerMixin):
