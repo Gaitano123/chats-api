@@ -145,7 +145,7 @@ class Users(Resource):
         db.session.commit()
         return user, 201
     
-@ns.route("/users/<int:id>")    
+@ns.route("/user/<int:id>")    
 class UserById(Resource):
     
     @ns.marshal_with(user_model)
