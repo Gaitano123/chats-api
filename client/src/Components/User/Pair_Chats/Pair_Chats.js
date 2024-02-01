@@ -1,13 +1,20 @@
 import React from 'react';
+import Form from './Form';
 
-function PairChat({ ChatsPair}){
+function PairChat({ ChatsPair, onAddition }){
 
     if (!Array.isArray(ChatsPair)) {
         console.error('ChatsPair is not an array:', ChatsPair);
         return null; // or return an error message or handle it accordingly
     }
 
-    const chat = ChatsPair.map((chat) => (
+    const receiver_id = Number(localStorage.getItem('receiver_id'));
+    const user_id = Number(localStorage.getItem('user_id'))
+
+    const filteredChats = ChatsPair.filter((chat) => (chat.sender === user_id && chat.receiver === receiver_id) || (chat.sender === receiver_id && chat.receiver === user_id) )
+
+
+const chat = filteredChats.map((chat) => (
         <div key={chat.id}>
             <p>{chat.chat}</p>
             <p>{chat.sender_name}</p>
@@ -18,8 +25,8 @@ function PairChat({ ChatsPair}){
     
     return(
         <div>
-            <h1>pair chats</h1>
             {chat}
+            <Form onAddition={onAddition} />
         </div>
     )
 }

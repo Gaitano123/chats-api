@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Form(){
+function Form({ onAddition }){
 
     const [chat, setChat] = useState("")
     
@@ -8,23 +8,29 @@ function Form(){
         setChat(e.target.value)
     }
 
+    const receiver_id = Number(localStorage.getItem('receiver_id'));
     const user_id = Number(localStorage.getItem('user_id'))
-    const group_id = Number(localStorage.getItem('group_id'))
 
 
     function handleSubmit(e){
         e.preventDefault();
-        fetch('/api/group-chats', {
+        fetch('/api/pair-chats', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                group_id: group_id,
+                chat: chat,           
                 sender: user_id,
-                chat: chat            
+                receiver: receiver_id
             })
         })
+        .then((res) => res.json())
+      .then((data) => {
+        onAddition(data);
+      })
+      .catch((error) => console.error('Error adding pair chat:', error));
+      setChat("")
     }
 
     return(

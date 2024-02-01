@@ -5,9 +5,26 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.profile-container{
+  margin-left: 46px;
+}
+
+.profile-container:hover{
+  transform: scale(1.005);
+}
+
+.profile-image {
+  width: 100px; /* Adjust the width as needed */
+  height: 100px; /* Adjust the height as needed */
+  border-radius: 50%;
+  object-fit: cover; /* Ensures the image fills the circular container */
+  margin-bottom: 10px; /* Optional: Add margin for spacing */
 }

@@ -15,7 +15,7 @@ function Group({ groups }){
 
         localStorage.setItem('group_id', group_id)
 
-        navigate('/gro')
+        navigate('/group-chats')
     }
 
     const group = groups.map((data) => (

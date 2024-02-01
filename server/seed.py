@@ -34,7 +34,7 @@ with app.app_context():
             last_name= fake.last_name(),
             username = fake.name(),
             phone_no= fake.phone_number(),
-            profile = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.ph%2Fpin%2F792070653234421442%2F&psig=AOvVaw2JuYwpWu7NzwWrct6Zbdwf&ust=1706823844380000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCIil1bnMiIQDFQAAAAAdAAAAABAE',
+            profile = 'https://dummyimage.com/200x200',
             about = fake.sentence(),
             email= fake.email(),
             password = 'helloworld'
@@ -79,7 +79,7 @@ with app.app_context():
         group = Group(
             name = fake.company(),
             admin_id = random.randint(1, 100),
-            profile = group_profile,
+            profile = 'https://dummyimage.com/200x200',
             description = fake.text()
         )
         groups.append(group)
