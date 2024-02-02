@@ -3,7 +3,7 @@ import Form from './Form';
 import Delete from './Delete';
 import GroupInfo from './profile';
 
-function GroupChat({ ChatsGroup, onDelete, groups }){
+function GroupChat({ ChatsGroup, onDelete, group }){
 
     if (!Array.isArray(ChatsGroup)) {
         console.error('ChatsGroup is not an array:', ChatsGroup);
@@ -27,8 +27,8 @@ function GroupChat({ ChatsGroup, onDelete, groups }){
     
     return(
         <div className='d-flex flex-column align-items-start d-flex min-vh-100 group-chat'>
-            <div>
-                <GroupInfo groups={groups} />
+            <div className="ginfo">
+                <GroupInfo group ={group} />
             </div>
             {chat}
             <Form />

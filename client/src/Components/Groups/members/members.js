@@ -1,6 +1,7 @@
 import React from "react";
+import Details from "./Details";
 
-function Members({members}){
+function Members({members, group }){
 
     const group_id = Number(localStorage.getItem('group_id'));
 
@@ -10,15 +11,18 @@ function Members({members}){
     }
 
     const data = members.filter((member) => member.group_id === group_id).map((member) => (
-        <div key={member.id}>
-            <p>{member.member_name}</p>
-            <img src={member.profile} alt="" />
+        <div className="profile-container" key={member.id}>
+            <img className="profile-image" src={member.profile} alt="" />
+            <a href="/" target="">@{member.member_name}</a>
             <p>{member.about}</p>
         </div>
     ))
 
     return(
         <div>
+            <div>
+                <Details group ={group} />
+            </div>
             {data}
         </div>
     )
