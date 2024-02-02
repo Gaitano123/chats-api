@@ -31,7 +31,7 @@ function Users({ users }){
     ))
 
     return(
-        <div>
+        <div className="box">
             {user}
         </div>
     )

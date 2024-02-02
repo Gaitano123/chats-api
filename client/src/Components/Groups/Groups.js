@@ -19,11 +19,9 @@ function Group({ groups }){
     }
 
     const group = groups.map((data) => (
-        <div key={data.id} onClick={() => handleClick(data.id)}>
-            <p>{data.name}</p>
-            <img src={data.profile} alt=""/>
-            <p>{data.description}</p>
-            <p>{data.admin_name}</p>
+        <div className="profile-container" key={data.id} onClick={() => handleClick(data.id)}>
+            <img className="profile-image" src={data.profile} alt=""/>
+            <a href="" target="">{data.name}</a>
         </div>
     ))
 

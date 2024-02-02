@@ -14,11 +14,15 @@ code {
 }
 
 .profile-container{
-  margin-left: 46px;
+  border-bottom: 4px solid #000;
+  width: 59vh;
+  margin-bottom: 10px;
+  margin-left: 2px;
+  border-radius: 30px;
 }
 
 .profile-container:hover{
-  transform: scale(1.005);
+  transform: scale(1.009);
 }
 
 .profile-image {
@@ -27,4 +31,20 @@ code {
   border-radius: 50%;
   object-fit: cover; /* Ensures the image fills the circular container */
   margin-bottom: 10px; /* Optional: Add margin for spacing */
+  padding: 7px;
+}
+
+.box{
+  /* background-color: brown; */
+  width: 60vh;
+  height: 100%;
+}
+
+.profile-photo{
+  width: 200px; /* Adjust the width as needed */
+  height: 200px; /* Adjust the height as needed */
+  border-radius: 50%;
+  object-fit: cover; /* Ensures the image fills the circular container */
+  margin-bottom: 10px; /* Optional: Add margin for spacing */
+  padding: 7px;
 }
