@@ -18,7 +18,7 @@ function Users({ users }){
     }
 
     const user = users.map((profile) =>(
-        <div className="profile-container" key={profile.id} onClick={() => handleClick(profile.id)}>
+        <div key={profile.id} onClick={() => handleClick(profile.id)}>
             <img className="profile-image" src={profile.profile} alt="the profile of the user" />
             <a href="/" target="">@{profile.username}</a>
             {/* <p>Phone Number: {profile.phone_no}</p>

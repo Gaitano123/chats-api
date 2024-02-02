@@ -10,6 +10,8 @@ import Group from './Groups/Groups';
 import Users from './User/Users';
 import LandPg from './Landing/LandPg';
 import Home from './Home';
+import Members from './Groups/members/members';
+// import GroupInfo from './Groups/Group_Chats/profile';
 
 
 function App() {
@@ -20,6 +22,7 @@ function App() {
   const [profile, setProfile] = useState("");
   const [groups, setGroups] = useState("");
   const [users, setUsers] = useState("");
+  const [ members, setMembers] = useState("");
 
   function fetchGeneralChats(){
     fetch("/api/chats")
@@ -131,6 +134,23 @@ function App() {
     });  
   }
 
+  function fetchMembers(){
+    fetch("/api/group-members")
+    .then((res) =>{
+      if(!res.ok){
+        throw new Error(`failed to fetch chats: ${res.statusText}`)
+      }
+      return res.json();
+    })
+    .then((data) =>{
+      setMembers(data)
+    })
+    .catch((err) => {
+      console.error('Error fetching chats:', err)
+    });  
+  }
+
+
   useEffect(() =>{
     fetchGeneralChats();
     fetchPairChats();
@@ -138,6 +158,7 @@ function App() {
     fetchProfile();
     fetchGroups();
     fetchUsers();
+    fetchMembers();
   }, [])
 
   return (
@@ -147,12 +168,14 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path="/chats" element={ <GeneralChat chatGeneral = {generalChats} /> } />
         <Route path="/pair-chats" element={ <PairChat ChatsPair = {pairChats} onAddition={addPairChat} /> } />
-        <Route path="/group-chats" element={ <GroupChat ChatsGroup ={groupChats} onDelete={deleteGroupChat}/> } />
+        <Route path="/group-chats" element={ <GroupChat groups ={groups} ChatsGroup ={groupChats} onDelete={deleteGroupChat}/> } />
         <Route path="/login" element={<Login />} />
         <Route path='/profile' element={<Profile profile = {profile} />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/groups' element={<Group groups = {groups} />} />
         <Route path= '/users' element={<Users users ={users} />} />
+        <Route path= '/group-members' element={<Members members ={members} />} />
+        {/* <Route path='/group-info' element={<GroupInfo />} /> */}
       </Routes>
     </div>
   );

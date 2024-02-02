@@ -92,7 +92,9 @@ group_member_model = api.model("Group_Member", {
     "group_id": fields.Integer,
     "group_name": fields.String(attribute=lambda x: Group.query.get(x.group_id).name),
     "member_id": fields.Integer,
-    "member_name": fields.String(attribute=lambda x: User.query.get(x.member_id).username)
+    "member_name": fields.String(attribute=lambda x: User.query.get(x.member_id).username),
+    "profile": fields.String(attribute=lambda x: User.query.get(x.member_id).profile),
+    "about": fields.String(attribute=lambda x: User.query.get(x.member_id).about),
 })
 
 group_member_input_model = api.model("Group_Member", {
@@ -322,7 +324,7 @@ class Groups(Resource):
         db.session.commit()
         return group
 
-@ns.route("/groups/<int:id>")
+@ns.route("/group/<int:id>")
 class GroupById(Resource):
     
     @ns.marshal_with(groups_model)
@@ -362,7 +364,7 @@ class GroupById(Resource):
         db.session.commit()
         return {}, 201
     
-@ns.route("/group-memebers")
+@ns.route("/group-members")
 class GroupMembers(Resource):
     
     @ns.marshal_list_with(group_member_model)
@@ -380,7 +382,7 @@ class GroupMembers(Resource):
         db.session.commit()
         return member
 
-@ns.route("/group-members/<int:id>")
+@ns.route("/group-member/<int:id>")
 class GroupMemberById(Resource):
     
     @ns.marshal_with(group_member_model)
