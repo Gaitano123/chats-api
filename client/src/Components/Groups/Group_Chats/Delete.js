@@ -22,7 +22,8 @@ function Delete({ id, onDelete }) {
     }
 
     return (
-        <button onClick={handleClick}>remove</button>
+        // <button onClick={handleClick}>remove</button>
+        <i class="fa-solid fa-trash" onClick={handleClick}></i>
     );
 }
 

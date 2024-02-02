@@ -15,16 +15,14 @@ function PairChat({ ChatsPair, onAddition }){
 
 
 const chat = filteredChats.map((chat) => (
-        <div key={chat.id}>
+        <div  className='chat-box' key={chat.id}>
             <p>{chat.chat}</p>
-            <p>{chat.sender_name}</p>
-            <p>{chat.receiver_name}</p>
             <p>{chat.created_at}</p>
         </div>
     ))
     
     return(
-        <div>
+        <div className='d-flex flex-column align-items-start d-flex min-vh-100 group-chat'>
             {chat}
             <Form onAddition={onAddition} />
         </div>

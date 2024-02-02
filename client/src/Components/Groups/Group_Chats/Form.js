@@ -28,13 +28,16 @@ function Form(){
     }
 
     return(
-        <div>
+        <div className="form-chat">
             <form onSubmit={handleSubmit}>
-                <input type="text" name="chat" value={chat} onChange={handleChange} />
-                <button type="submit">send</button>
+                <div className="input-group mb-3">
+                    <input  type="text" className="form-control" aria-describedby="button-addon2" name="chat" value={chat} onChange={handleChange} />
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i type="submit" className="" class="fa-solid fa-paper-plane"></i></button>
+                </div>
             </form>
         </div>
     )
 }
 
 export default Form;
+

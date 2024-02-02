@@ -13,16 +13,19 @@ function GroupChat({ ChatsGroup, onDelete }){
     const filteredChats = ChatsGroup.filter((message) => message.group_id === group_id)
 
     const chat = filteredChats.map((chat) =>(
-        <div key={chat.id}>
-            <p>{chat.sender_name}</p>
-            <p>{chat.chat}</p>
-            <p>{chat.created_at}</p>
-            <Delete id ={chat.id} onDelete = {onDelete}/>
+        <div className='chat-box' key={chat.id}>
+            <div className='user-sctn'>
+                <a href='/'>@{chat.sender_name}</a>
+            </div>
+            <div className='ct-section'>
+                <p>{chat.chat}  <Delete id ={chat.id} onDelete = {onDelete}/></p>
+                <span>{chat.created_at}</span>
+            </div>
         </div>
     ))
     
     return(
-        <div>
+        <div className='d-flex flex-column align-items-start d-flex min-vh-100 group-chat'>
             {chat}
             <Form />
         </div>

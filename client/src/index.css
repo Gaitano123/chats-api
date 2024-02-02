@@ -6,6 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 code {
@@ -35,7 +37,6 @@ code {
 }
 
 .box{
-  /* background-color: brown; */
   width: 60vh;
   height: 100%;
 }
@@ -47,4 +48,36 @@ code {
   object-fit: cover; /* Ensures the image fills the circular container */
   margin-bottom: 10px; /* Optional: Add margin for spacing */
   padding: 7px;
+}
+
+.chat-box{
+  border: 2px solid #000;
+  margin: 6px;
+  padding: 0px 0px 7px;
+  border-radius: 15px 15px 15px 15px;
+}
+
+.chat-box:hover{
+  transform: scale(1.005);
+}
+
+.user-sctn{
+  padding-left: 10px;
+  border-radius: 15px 15px 0px 0px;
+}
+
+.group-chat{
+  width: 130vh;
+  margin-left: auto;
+  justify-content: center;
+}
+
+.ct-section{
+  padding: 5px 30px 0px 10px;
+}
+
+.form-chat{
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
