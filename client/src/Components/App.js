@@ -11,7 +11,7 @@ import Users from './User/Users';
 import LandPg from './Landing/LandPg';
 import Home from './Home';
 import Members from './Groups/members/members';
-// import GroupInfo from './Groups/Group_Chats/profile';
+import Receiver from './User/Receiver';
 
 
 function App() {
@@ -22,8 +22,9 @@ function App() {
   const [profile, setProfile] = useState("");
   const [groups, setGroups] = useState("");
   const [users, setUsers] = useState("");
-  const [ members, setMembers] = useState("");
+  const [members, setMembers] = useState("");
   const [group, setGroup] = useState("")
+  const [user, setUser] = useState("")
 
 
   function fetchGeneralChats(){
@@ -85,7 +86,7 @@ function App() {
   const deleteGroupChat = (deletedChatId) => {
     // Update the state to exclude the deleted chat
     setGroupChats((prevChatsGroup) => prevChatsGroup.filter((chat) => chat.id !== deletedChatId));
-};
+  };
 
   function fetchProfile(){
     const id = Number(localStorage.getItem('user_id'))
@@ -152,7 +153,7 @@ function App() {
     });  
   }
 
-  function fetchdata(){
+  function fetchGroup(){
     const group_id = Number(localStorage.getItem('group_id'));
     fetch(`/api/group/${group_id}`)
     .then((res) =>{
@@ -167,8 +168,28 @@ function App() {
     .catch((err) => {
       console.error('Error fetching chats:', err)
     });     
-}
+  }
 
+  function fetchUser(){
+    // const receiver_id = Number(localStorage.getItem('receiver_id'));
+    const receiver_id = 8
+
+    console.log(receiver_id)
+
+    fetch(`/api/user/${receiver_id}`)
+    .then((res) =>{
+        if(!res.ok){
+          throw new Error(`failed to fetch user: ${res.statusText}`)
+        }
+        return res.json();
+    })
+    .then((data) =>{
+      setUser(data)
+    })
+    .catch((err) => {
+      console.error('Error fetching chats:', err)
+    });     
+  }
 
   useEffect(() =>{
     fetchGeneralChats();
@@ -178,7 +199,8 @@ function App() {
     fetchGroups();
     fetchUsers();
     fetchMembers();
-    fetchdata();
+    fetchGroup();
+    fetchUser();
   }, [])
 
   return (
@@ -195,7 +217,7 @@ function App() {
         <Route path='/groups' element={<Group groups = {groups} />} />
         <Route path= '/users' element={<Users users ={users} />} />
         <Route path= '/group-members' element={<Members group= {group} members ={members} />} />
-        {/* <Route path='/group-info' element={<GroupInfo />} /> */}
+        <Route path='/receiver' element={<Receiver user={user} />} />
       </Routes>
     </div>
   );
