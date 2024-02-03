@@ -104,3 +104,8 @@ code {
 .ginfo {
   width: 100%;
 }
+
+.receiver-photo{
+  height: 50vh;
+  width: 50vh;
+}
