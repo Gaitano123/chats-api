@@ -22,7 +22,7 @@ function Users({ users }){
     const user = users.map((profile) =>(
         <div key={profile.id} onClick={() => handleClick(profile.id)}>
             <img className="profile-image" src={profile.profile} alt="the profile of the user" />
-            <NavLink to="/receiver">@{profile.username}</NavLink>
+            <a href="/receiver">@{profile.username}</a>
         </div>
     ))
 

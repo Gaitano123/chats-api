@@ -209,7 +209,7 @@ function App() {
         <Route exact path='/' element={<LandPg />} />
         <Route path='/home' element={<Home />} />
         <Route path="/chats" element={ <GeneralChat chatGeneral = {generalChats} /> } />
-        <Route path="/pair-chats" element={ <PairChat ChatsPair = {pairChats} onAddition={addPairChat} /> } />
+        <Route path="/pair-chats" element={ <PairChat user={user} ChatsPair = {pairChats} onAddition={addPairChat} /> } />
         <Route path="/group-chats" element={ <GroupChat group={group} ChatsGroup ={groupChats} onDelete={deleteGroupChat}/> } />
         <Route path="/login" element={<Login />} />
         <Route path='/profile' element={<Profile profile = {profile} />} />

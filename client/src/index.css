@@ -15,6 +15,10 @@ code {
     monospace;
 }
 
+.App{
+  background: linear-gradient(to right,rgb(35,42,63), rgb(63,76,119));
+}
+
 .profile-container{
   border-bottom: 4px solid #000;
   width: 59vh;
@@ -108,4 +112,31 @@ code {
 .receiver-photo{
   height: 50vh;
   width: 50vh;
+}
+
+/* Landing page */
+
+.land-bx{
+  background-color: rgb(93,248,219);
+  padding-top: 150px;
+  padding-bottom: 150px;
+  border-radius: 90px;
+}
+
+.lnd-btn{
+  background-color: rgb(35,42,63);
+  color: #fff;
+}
+
+.lnd-btn:hover{
+  background-color: rgb(39,107,136);
+  color: #fff;
+}
+
+/* sign in page */
+.sign-bx{
+  background-color: rgb(93,248,219);
+  padding-top: 150px;
+  padding-bottom: 150px;
+  border-radius: 90px;
 }

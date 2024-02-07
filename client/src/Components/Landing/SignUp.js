@@ -68,7 +68,7 @@ function SignUp(){
 
     return(
         <div className="d-flex align-items-center justify-content-center min-vh-100">
-            <form className="form" onSubmit={handleSubmit}>
+            <form className="form sign-bx" onSubmit={handleSubmit}>
                 <div className="d-flex justify-content-center">
                     <div className="form-floating mb-3 m-2">
                         <input onChange={handleChange} className="form-control" id="floatingInput" type="text" name="firstname" placeholder="first name"/>

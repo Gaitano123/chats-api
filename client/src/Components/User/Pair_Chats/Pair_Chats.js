@@ -1,7 +1,8 @@
 import React from 'react';
 import Form from './Form';
+import ReceiverProfile from './Profile';
 
-function PairChat({ ChatsPair, onAddition }){
+function PairChat({ ChatsPair, onAddition, user }){
 
     if (!Array.isArray(ChatsPair)) {
         console.error('ChatsPair is not an array:', ChatsPair);
@@ -23,6 +24,9 @@ const chat = filteredChats.map((chat) => (
     
     return(
         <div className='d-flex flex-column align-items-start d-flex min-vh-100 group-chat'>
+            <div>
+                <ReceiverProfile user={user} />
+            </div>
             {chat}
             <Form onAddition={onAddition} />
         </div>
