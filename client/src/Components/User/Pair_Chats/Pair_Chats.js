@@ -23,12 +23,14 @@ const chat = filteredChats.map((chat) => (
     ))
     
     return(
-        <div className='d-flex flex-column align-items-start d-flex min-vh-100 group-chat'>
-            <div>
+        <div className='min-vh-100 group-chat'>
+            <div className='ginfo'>
                 <ReceiverProfile user={user} />
             </div>
             {chat}
-            <Form onAddition={onAddition} />
+            <div className='finfo'>
+                <Form onAddition={onAddition} />
+            </div>
         </div>
     )
 }

@@ -26,12 +26,14 @@ function GroupChat({ ChatsGroup, onDelete, group }){
     ))
     
     return(
-        <div className='d-flex flex-column align-items-start d-flex min-vh-100 group-chat'>
+        <div className='min-vh-100 group-chat'>
             <div className="ginfo">
                 <GroupInfo group ={group} />
             </div>
             {chat}
-            <Form />
+            <div className='finfo'>
+                <Form />
+            </div>
         </div>
     )
 }

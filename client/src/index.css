@@ -82,11 +82,19 @@ code {
   width: max-content;
 }
 
+/* group & user chats */
 
-
+.group-chat{
+  width: 130vh;
+  margin-left: auto;
+  justify-content: center;
+  padding-top: 100px;
+}
 
 .chat-box{
   border: 2px solid #000;
+  background-color: rgb(93,248,219);
+  width: fit-content;
   margin: 6px;
   padding: 0px 0px 7px;
   border-radius: 15px 15px 15px 15px;
@@ -96,25 +104,39 @@ code {
   transform: scale(1.005);
 }
 
+.ginfo {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  background-color: rgb(39,107,136);
+}
+
+.finfo{
+  width: 100%;
+  background-color: rgb(39,107,136);
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
+}
+
+/* .form-chat{
+  margin-right: 600px;
+  padding: 20px 70px 20px 20px;
+} */
+
+.form-chat button{
+  background-color: rgb(35,42,63);
+}
+
 .user-sctn{
   padding-left: 10px;
   border-radius: 15px 15px 0px 0px;
 }
 
-.group-chat{
-  width: 130vh;
-  margin-left: auto;
-  justify-content: center;
-}
-
 .ct-section{
   padding: 5px 30px 0px 10px;
-}
-
-.form-chat{
-  width: 100%;
-  display: flex;
-  justify-content: center;
 }
 
 .group_profile{
@@ -126,9 +148,7 @@ code {
   padding: 7px;
 }
 
-.ginfo {
-  width: 100%;
-}
+
 
 .receiver-photo{
   height: 50vh;
