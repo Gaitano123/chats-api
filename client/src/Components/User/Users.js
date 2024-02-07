@@ -20,14 +20,14 @@ function Users({ users }){
     }
 
     const user = users.map((profile) =>(
-        <div key={profile.id} onClick={() => handleClick(profile.id)}>
+        <div  className="profile-container" key={profile.id} onClick={() => handleClick(profile.id)}>
             <img className="profile-image" src={profile.profile} alt="the profile of the user" />
             <a href="/receiver">@{profile.username}</a>
         </div>
     ))
 
     return(
-        <div className="box">
+        <div className="users-box">
             {user}
         </div>
     )

@@ -103,22 +103,22 @@ function SignUp(){
                         <label>Email</label>
                     </div>
                 </div>
-                <div className="d-flex justify-content-center">
-                    <div className="form-floating mb-3 mx-5">
-                        <input onChange={handleChange} className="form-control" id="floatingInput" type={showPassword ? "text" : "password"} name="password" placeholder="" />
+                <div className="pass-box">
+                    <div className="form-floating mb-3 ">
+                        <input onChange={handleChange} className="form-control xox" id="floatingInput" type={showPassword ? "text" : "password"} name="password" placeholder="" />
                         <label>
                             Password
                         </label>
                     </div>
                     <button
                                 type="button"
-                                className="btn btn-outline-secondary"
+                                className="password"
                                 onClick={togglePasswordVisibility}
                                 >
-                                {showPassword ? "Hide" : "Show"}
+                                {showPassword ? <i class="fa-solid fa-lock-open"></i> : <i class="fa-solid fa-lock"></i>}
                     </button>
                 </div>
-                <button className="btn btn-primary d-flex align-items-center text-uppercase" type="submit">signin</button>
+                <button className="btn lnd-btn text-uppercase" type="submit">signup</button>
             </form>
         </div>
     )

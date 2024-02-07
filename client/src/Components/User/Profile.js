@@ -5,7 +5,7 @@ function Profile({ profile }){
     return(
         <div className="d-flex flex-column mb-3 align-items-center justify-content-center prof-box">
             <img className="profile-photo p-2" src={profile.profile} alt="the profile of the user" />
-            <div className="d-flex flex-row">
+            <div className="profile-box">
                 <div className="prof-boxes">
                     <p><span className="text-uppercase fw-bold">First Name: </span>{profile.first_name}</p>
                     <p><span className="text-uppercase fw-bold">Full Name: </span>{profile._full_name}</p>
@@ -19,9 +19,7 @@ function Profile({ profile }){
             </div>
             <p><span className="text-uppercase fw-bold">Email: </span>{profile.email}</p>
             <div>
-                <button>
-                    <i class="fa-solid fa-user-pen"></i>
-                </button>
+                <i class="fa-solid fa-user-pen"></i>
             </div>
         </div>
     )

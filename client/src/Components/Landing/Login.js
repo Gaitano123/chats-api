@@ -67,27 +67,27 @@ function Login(){
 
     return(
         <div className="d-flex align-items-center justify-content-center min-vh-100">
-            <form onSubmit={handleClick}>
+            <form className="form sign-bx" onSubmit={handleClick}>
                 <div className="form-floating mb-3 m-2">
                     <input className="form-control" id="floatingInput" type="text" name="username" value={inputs.username} onChange={handleChange} placeholder="username"  />
                     <label>Username</label>
                 </div>
-                <div className="d-flex justify-content-center">
-                    <div className="form-floating mb-3 mx-5">
-                        <input onChange={handleChange} className="form-control" id="floatingInput" type={showPassword ? "text" : "password"} name="password" placeholder="" />
+                <div className="pass-box">
+                    <div className="form-floating mb-3">
+                        <input onChange={handleChange} className="form-control xox" id="floatingInput" type={showPassword ? "text" : "password"} name="password" placeholder="" />
                         <label>
                             Password
                         </label>
                     </div>
                     <button
-                                type="button"
-                                className="btn btn-outline-secondary"
-                                onClick={togglePasswordVisibility}
-                                >
-                                {showPassword ? "Hide" : "Show"}
+                        type="button"
+                        className="password"
+                        onClick={togglePasswordVisibility}
+                        >
+                        {showPassword ? <i class="fa-solid fa-lock-open"></i> : <i class="fa-solid fa-lock"></i>}
                     </button>
                 </div>
-                <button className="btn btn-primary d-flex align-items-center text-uppercase" type="submit">Login</button>
+                <button className="btn lnd-btn text-uppercase" type="submit">Login</button>
             </form>
         </div>
     )
