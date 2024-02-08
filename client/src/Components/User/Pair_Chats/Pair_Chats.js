@@ -16,7 +16,7 @@ function PairChat({ ChatsPair, onAddition, user }){
 
 
 const chat = filteredChats.map((chat) => (
-        <div  className='chat-box' key={chat.id}>
+        <div  className='chat-box2' key={chat.id}>
             <p>{chat.chat}</p>
             <p>{chat.created_at}</p>
         </div>
@@ -27,7 +27,9 @@ const chat = filteredChats.map((chat) => (
             <div className='ginfo'>
                 <ReceiverProfile user={user} />
             </div>
-            {chat}
+            <div className='chat-scnt'>
+                {chat}
+            </div>
             <div className='finfo'>
                 <Form onAddition={onAddition} />
             </div>

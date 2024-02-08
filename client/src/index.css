@@ -8,7 +8,7 @@ body {
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  background-color: blueviolet;
+  background: linear-gradient(to right,rgb(35,42,63), rgb(63,76,119));
 }
 
 code {
@@ -104,6 +104,19 @@ code {
   transform: scale(1.005);
 }
 
+.chat-box2{
+  border: 2px solid #000;
+  background-color: rgb(93,248,219);
+  width: fit-content;
+  margin: 6px;
+  padding: 7px 7px 7px;
+  border-radius: 15px 15px 15px 15px;
+}
+
+.chat-box2:hover{
+  transform: scale(1.005);
+}
+
 .ginfo {
   width: 100%;
   position: fixed;
@@ -115,16 +128,40 @@ code {
 .finfo{
   width: 100%;
   background-color: rgb(39,107,136);
-  padding: 20px;
+  padding: 10px 10px 10px 10px;
   position: fixed;
   bottom: 0;
   z-index: 1000;
 }
 
-/* .form-chat{
-  margin-right: 600px;
-  padding: 20px 70px 20px 20px;
-} */
+.chat-scnt {
+  padding-bottom: 100px;
+  flex-grow: 1; /* This will make the chat section fill the available vertical space */
+  overflow-y: auto; /* This will enable vertical scrolling */
+  max-height: calc(100vh - 100px); /* Adjust the max-height value as needed */
+}
+
+.chat-scnt::-webkit-scrollbar {
+  width: 2px;
+}
+
+.chat-scnt::-webkit-scrollbar-track {
+  background: rgb(93,248,219); /* Color of the scrollbar track */
+}
+
+.chat-scnt::-webkit-scrollbar-thumb {
+  background: rgb(39,107,136); /* Color of the scrollbar thumb */
+  border-radius: 0px;
+}
+
+.chat-scnt::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the scrollbar thumb on hover */
+}
+
+.input-group textarea {
+  width: 90%;
+  max-width: 600px; /* Optionally, set a maximum width */
+}
 
 .form-chat button{
   background-color: rgb(35,42,63);
@@ -147,8 +184,6 @@ code {
   margin-bottom: 10px; /* Optional: Add margin for spacing */
   padding: 7px;
 }
-
-
 
 .receiver-photo{
   height: 50vh;

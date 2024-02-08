@@ -31,10 +31,11 @@ function Form(){
         <div className="form-chat">
             <form onSubmit={handleSubmit}>
                 <div className="input-group">
-                    <input  type="text" className="" aria-describedby="button-addon2" name="chat" value={chat} onChange={handleChange} />
+                    <textarea  type="text" aria-describedby="button-addon2" name="chat" value={chat} onChange={handleChange} />
                     <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i type="submit" className="" class="fa-solid fa-paper-plane"></i></button>
                 </div>
             </form>
+            
         </div>
     )
 }

@@ -2,8 +2,6 @@ from app import app
 from faker import Faker
 import random
 from datetime import datetime
-import os
-from pathlib import Path
 
 from models import db, User, Chat, Pair_chat, Group, Group_Chat, Group_Member
 
@@ -21,9 +19,6 @@ with app.app_context():
     db.session.commit()
     
     fake = Faker()
-    user_profile = os.path.join(Path(__file__).resolve().parent, 'blank-profile-picture-973460_960_720.webp')
-    group_profile= os.path.join(Path(__file__).resolve().parent, 'blank-profile-picture-973460_960_720.webp')
-
     
     print('🦸‍♀️ Seeding users...')
     

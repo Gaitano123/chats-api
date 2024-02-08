@@ -30,7 +30,9 @@ function GroupChat({ ChatsGroup, onDelete, group }){
             <div className="ginfo">
                 <GroupInfo group ={group} />
             </div>
-            {chat}
+            <div className='chat-scnt'>
+                {chat}
+            </div>
             <div className='finfo'>
                 <Form />
             </div>

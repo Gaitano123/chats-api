@@ -34,10 +34,12 @@ function Form({ onAddition }){
     }
 
     return(
-        <div>
+        <div  className="form-chat">
             <form onSubmit={handleSubmit}>
-                <input type="text" name="chat" value={chat} onChange={handleChange} />
-                <button type="submit">send</button>
+                <div className="input-group">
+                    <textarea type="text" name="chat" value={chat} onChange={handleChange} />
+                    <button  class="btn btn-outline-secondary" type="submit" id="button-addon2"><i className="" class="fa-solid fa-paper-plane"></i></button>
+                </div>
             </form>
         </div>
     )
