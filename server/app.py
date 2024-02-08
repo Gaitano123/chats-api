@@ -301,7 +301,7 @@ class PairChatById(Resource):
     def delete(self, id):
         pair_chat = Pair_chat.query.get(id)
         db.session.delete(pair_chat)
-        db.session.delete()
+        db.session.commit()
         return {}, 201
 
 @ns.route("/groups")

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Form(){
+function Form({ addGroupChat }){
 
     const [chat, setChat] = useState("")
     
@@ -25,6 +25,12 @@ function Form(){
                 chat: chat            
             })
         })
+        .then((res) => res.json())
+        .then((data) => {
+            addGroupChat(data);
+        })
+        .catch((error) => console.error('Error adding pair chat:', error));
+        setChat("")
     }
 
     return(
@@ -32,7 +38,7 @@ function Form(){
             <form onSubmit={handleSubmit}>
                 <div className="input-group">
                     <textarea  type="text" aria-describedby="button-addon2" name="chat" value={chat} onChange={handleChange} />
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i type="submit" className="" class="fa-solid fa-paper-plane"></i></button>
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i className="" class="fa-solid fa-paper-plane"></i></button>
                 </div>
             </form>
             

@@ -1,8 +1,9 @@
 import React from 'react';
 import Form from './Form';
 import ReceiverProfile from './Profile';
+import Delete from './Delete';
 
-function PairChat({ ChatsPair, onAddition, user }){
+function PairChat({ ChatsPair, onAddition, user, onDelete }){
 
     if (!Array.isArray(ChatsPair)) {
         console.error('ChatsPair is not an array:', ChatsPair);
@@ -19,6 +20,7 @@ const chat = filteredChats.map((chat) => (
         <div  className='chat-box2' key={chat.id}>
             <p>{chat.chat}</p>
             <p>{chat.created_at}</p>
+            <Delete id={chat.id} onDelete={onDelete} />
         </div>
     ))
     
